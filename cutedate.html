@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blithchron x Shreya</title>
+  <style>
+    /* ===== Base Styles ===== */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fdf6ff; /* soft background sampled from mascot light tones */
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      color: #5e1b8c;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    /* ===== Logo & Mascot ===== */
+    #logo {
+      width: 60%;
+      max-width: 300px;
+      margin-top: 40px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #mascot {
+      width: 120px;
+      margin-top: 20px;
+      animation: bounceIn 2s ease-in-out;
+    }
+
+    /* ===== Text Styling ===== */
+    h1 {
+      font-size: 2em;
+      margin: 20px;
+    }
+
+    .her-name {
+      font-weight: bold;
+      color: #b312e0; /* vibrant purple from mascot palette */
+      text-shadow: 0 0 6px #ffd6ff;
+    }
+
+    /* ===== Message Cards (mock posters) ===== */
+    .message {
+      display: none;
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 90%;
+      font-size: 1.3em;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    /* ===== Buttons ===== */
+    button {
+      padding: 15px 30px;
+      font-size: 1em;
+      background: #b312e0; /* mascot purple */
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 20px;
+      transition: background 0.3s, transform 0.3s;
+      animation: pop 1s infinite alternate;
+    }
+
+    button:hover {
+      background: #8d0fb3;
+      transform: scale(1.05);
+    }
+
+    .final-message {
+      display: none;
+      font-size: 1.5em;
+      color: #9900cc;
+      margin-top: 30px;
+      padding: 20px;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    /* ===== Floating Blith Assets ===== */
+    .floating-asset {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: translateY(-800px) rotate(360deg); opacity: 0; }
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.5) translateY(100px); opacity: 0; }
+      60% { transform: scale(1.1) translateY(-20px); opacity: 1; }
+      100% { transform: scale(1) translateY(0); }
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.85em;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <img id="logo" src="logo.png" alt="Blithchron Logo">
+
+  <!-- Intro -->
+  <h1><span class="her-name">Made for Shreya</span>, my fav coordi!</h1>
+  <p>But this page? Just something to let you know you matter to me.</p>
+
+  <!-- Mascot -->
+  <img id="mascot" src="mascot.png" alt="Design Mascot">
+
+  <!-- Buttons -->
+  <button id="nextBtn" onclick="showNext()">Okay, I made a thing...</button>
+
+  <!-- Messages -->
+  <div class="message" id="msg1">Paise toh nahi hai phool khareedne ko... but ye bana diya, so I hope it makes up for it. Might not be as good as Daksh tho, so forgive me.</div>
+  <div class="message" id="msg2">Honestly, I had no idea what to even put lol. I made this before our convo — but you said you didn’t want much feelings, so I figured I’d keep it Blith-themed since you liked it so much.</div>
+  <div class="message" id="msg3">At this point, I really think you should just become the official Blith mascot. You match the ✨cuteness✨ vibe.</div>
+  <div class="message" id="msg4">Anyway… I just thought this would be a fun way to say I notice and appreciate all the effort you put in.</div>
+  <div class="message" id="msg5">There's a little something I wanted to say, but only if you're curious.</div>
+
+  <!-- Reveal Button -->
+  <button id="revealBtn" onclick="revealFinal()" style="display: none;">📅 Book the Next Date?</button>
+
+  <!-- Final Note -->
+  <div class="final-message" id="finalNote">
+    <p>Hey, if this dinner was actually successful — thanks for coming on it.</p>
+    <p>I just wanted to say I’ve really enjoyed today. You’re genuinely impressive and worth the time.</p>
+    <p>That’s all this was. A small thing in my own way. Just to say that I genuinely admire the way you stay determined to your work... and yeah, I do find that kind of hot.</p>
+    <p>No expectations. Just glad I got to spend time with you.</p>
+    <p style="margin-top: 20px;">– Kshifish</p>
+  </div>
+
+  <footer>Made by a not-so-secret admirer during dinner</footer>
+
+  <!-- Floating assets script -->
+  <script>
+    const assets = ['asset1.png', 'asset2.png', 'asset3.png']; // replace with Blith icons
+    function createAsset() {
+      const asset = document.createElement('img');
+      asset.className = 'floating-asset';
+      asset.src = assets[Math.floor(Math.random() * assets.length)];
+      asset.style.left = Math.random() * 100 + 'vw';
+      asset.style.animationDuration = (4 + Math.random() * 3) + 's';
+      document.body.appendChild(asset);
+      setTimeout(() => asset.remove(), 7000);
+    }
+    setInterval(createAsset, 800);
+  </script>
+
+  <!-- Message reveal script -->
+  <script>
+    let msgIndex = 1;
+    function showNext() {
+      const msg = document.getElementById(`msg${msgIndex}`);
+      if (msg) {
+        msg.style.display = 'block';
+        msg.scrollIntoView({behavior: 'smooth', block: 'center'});
+        msgIndex++;
+        if (msgIndex === 6) {
+          document.getElementById("nextBtn").style.display = "none";
+          document.getElementById("revealBtn").style.display = "inline-block";
+        }
+      }
+    }
+
+    function revealFinal() {
+      document.getElementById("revealBtn").style.display = "none";
+      document.getElementById("finalNote").style.display = "block";
+      document.getElementById("finalNote").scrollIntoView({behavior: 'smooth'});
+    }
+  </script>
+
+</body>
+</html>
+	
